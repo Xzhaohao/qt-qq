@@ -4,17 +4,28 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++14
 
-RC_ICONS += logo.ico
-
 SOURCES += \
     main.cpp \
-    views/main/mainWindow.cpp
+    views/main/mainWindow.cpp \
+    views/base/baseWindow.cpp \
+    components/titleBar/titleBar.cpp \
+    manger/notifyManger.cpp \
+    utils/commonUtils.cpp \
+    views/login/login.cpp
 
 HEADERS += \
-    views/main/mainWindow.h
+    views/main/mainWindow.h \
+    views/base/baseWindow.h \
+    components/titleBar/titleBar.h \
+    components/titleBar/buttonType.h \
+    manger/notifyManger.h \
+    utils/commonUtils.h \
+    utils/customProxyStyle.h \
+    views/login/login.h
 
 FORMS += \
-    views/main/mainWindow.ui
+    views/main/mainWindow.ui \
+    views/login/login.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -25,3 +36,6 @@ msvc {
     QMAKE_CFLAGS += /utf-8
     QMAKE_CXXFLAGS += /utf-8
 }
+
+RESOURCES += \
+    res.qrc

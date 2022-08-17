@@ -15,7 +15,18 @@ add_executable(
         ${PROJECT_NAME} main.cpp
         views/main/mainWindow.cpp
         views/main/mainWindow.h
-        components/titleBar/titleBar.cpp components/titleBar/titleBar.h)
+        components/titleBar/titleBar.cpp
+        components/titleBar/titleBar.h
+        components/titleBar/buttonType.h
+        views/base/baseWindow.cpp
+        views/base/baseWindow.h
+        utils/commonUtils.cpp
+        utils/commonUtils.h
+        manger/notifyManger.cpp
+        manger/notifyManger.h
+        utils/customProxyStyle.h
+        views/login/login.cpp
+        views/login/login.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
