@@ -1,8 +1,9 @@
-#ifndef __LOGIN_H
-#define __LOGIN_H
+#ifndef LOGIN_H
+#define LOGIN_H
 
 #include "ui_login.h"
 #include "../base/baseWindow.h"
+#include "../main/mainWindow.h"
 
 class Login : public BaseWindow {
 Q_OBJECT
@@ -12,8 +13,15 @@ public:
 
     ~Login() override;
 
+private slots:
+
+    void onLoginBtnClicked();
+
+private:
+    void initControl();
+
 private:
     Ui::Login *ui;
 };
 
-#endif // __LOGIN_H
+#endif // LOGIN_H

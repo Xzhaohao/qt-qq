@@ -1,4 +1,3 @@
-#include "views/main/mainWindow.h"
 #include "views/login/login.h"
 
 #include <QApplication>

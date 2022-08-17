@@ -67,5 +67,4 @@ protected:
     TitleBar *titleBar{};        // 标题栏
 };
 
-
 #endif // __BASE_WINDOW_H

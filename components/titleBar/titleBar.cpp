@@ -7,7 +7,7 @@
 TitleBar::TitleBar(QWidget *parent) : QWidget(parent), mIsPressed(false), mButtonType(MIN_MAX_BUTTON) {
     initControl();
     initConnections();
-    loadStyleSheet("title");
+    loadStyleSheet("titleBar");
 }
 
 TitleBar::~TitleBar() = default;
@@ -42,6 +42,7 @@ void TitleBar::initControl() {
     mLayout->addWidget(mButtonMin);
     mLayout->addWidget(mButtonRestore);
     mLayout->addWidget(mButtonMax);
+    mLayout->addWidget(mButtonClose);
 
     // 设置间隙
     mLayout->setContentsMargins(5, 0, 0, 0);

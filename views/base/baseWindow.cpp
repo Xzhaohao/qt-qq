@@ -127,7 +127,7 @@ void BaseWindow::mousePressEvent(QMouseEvent *event) {
     }
 }
 
-void BaseWindow::mouseReleaseEvent(QMouseEvent *event) {
+void BaseWindow::mouseReleaseEvent(QMouseEvent *) {
     mMousePressed = false;
 }
 

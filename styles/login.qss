@@ -2,51 +2,50 @@
     font-family: Microsoft YaHei;
 }
 
-QWidget#UserLogin
-{
-    background-color:#ffffff;
+QWidget#Login {
+    background-color: #ffffff;
     border: 1px solid #cccccc;
-    border-radius:4px;
+    border-radius: 3px;
 }
 
 QLabel#TitleContent{
-	font-size:12px;
-	color:#ffffff;
+	font-size: 12px;
+	color: #ffffff;
 }
 
 QPushButton#loginBtn{
-	font-size:14px;
-	background:rgb(7, 189, 253);
-	color:#ffffff;
-	border:none;
-	border-radius:4px;
+	font-size: 14px;
+	background: rgb(7, 189, 253);
+	color: #ffffff;
+	border: none;
+	border-radius: 4px;
 }
 
 QPushButton#loginBtn:hover, QPushButton#loginBtn:pressed{
-	background:rgb(33, 200, 253);
+	background: rgb(33, 200, 253);
 }
 
 QPushButton#forgetWordBtn, QPushButton#registerBtn{
-	background:transparent;
+	background: transparent;
 	font-size: 12px;
-	color: rgb(0,148, 206);
-	border:none;
+	color: rgb(0, 148, 206);
+	border: none;
 }
 
 QPushButton#forgetWordBtn:hover, QPushButton#registerBtn:hover{
 	color: rgb(0,164, 222);
 }
 
-QCheckBox{
+QCheckBox {
     spacing: 5px;
 	font-size: 12px;
 	color: #666666;
-	background-color:transparent;
+	background-color: transparent;
 }
 
 QCheckBox::indicator:enabled, QCheckBox::indicator:enabled:unchecked{
-    width:15px;
-	height:15px;
+    width: 15px;
+	height: 15px;
     border-image: url(:assets/checkbox_normal.png);
 }
 
@@ -65,15 +64,16 @@ QCheckBox::indicator:enabled:checked:hover {
 QLineEdit#editUserAccount, QLineEdit#editPassword{
 	background: #FFFFFF;
 	border: 1px solid #DDDDDD;
-	border-radius: 2px;
+	border-radius: 3px;
 	font-size: 14px;
 	color: #666666;
+	padding-left: 6px;
 }
 
 QLineEdit#editUserAccount:hover, QLineEdit#editPassword:hover{
 	background: #FFFFFF;
 	border: 1px solid rgb(0, 161, 219);
-	border-radius: 2px;
+	border-radius: 3px;
 	font-size: 14px;
 	color: #666666;
 }
