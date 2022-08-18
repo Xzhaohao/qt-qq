@@ -35,7 +35,15 @@ add_executable(
         components/systemTray/systemTray.cpp
         components/systemTray/systemTray.h
         components/systemTray/customMenu.cpp
-        components/systemTray/customMenu.h)
+        components/systemTray/customMenu.h
+        views/main/rootContactItem.cpp
+        views/main/rootContactItem.h
+        components/contactItem/contactItem.cpp
+        components/contactItem/contactItem.h
+        views/talk/talkWindow.cpp
+        views/talk/talkWindow.h
+        views/talk/talkWindowShell.cpp
+        views/talk/talkWindowShell.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "

@@ -52,8 +52,20 @@ void MainWindow::initControl() {
     ui->bottomLayout_up->addWidget(addOtherAppExtension(":/assets/app/app_9.png", "app_9"));
     ui->bottomLayout_up->addStretch();
 
+    // 初始化联系人
+    initContactTree();
+
+    // 个性签名、好友搜索   事件过滤器
+    ui->signature->installEventFilter(this);
+    ui->searchInput->installEventFilter(this);
+
     connect(ui->sysMin, SIGNAL(clicked(bool)), this, SLOT(onShowHide(bool)));
     connect(ui->sysClose, SIGNAL(clicked(bool)), this, SLOT(onShowClose(bool)));
+
+    // 皮肤改变，更新搜索框样式
+    connect(NotifyManger::getInstance(), &NotifyManger::signalSkinChanged, [this]() {
+        updateSearchStyle();
+    });
 
     // 设置系统托盘
     new SystemTray(this);
@@ -127,8 +139,39 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
     BaseWindow::resizeEvent(event);
 }
 
+// 事件过滤器
 bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
-    return true;
+    if (ui->searchInput == obj) {
+        if (event->type() == QEvent::FocusIn) {
+            ui->searchWidget->setStyleSheet(
+                    QString("QWidget#searchWidget{background-color: rgb(255, 255, 255);"
+                            "border-bottom: 1px solid rgba(%1, %2, %3, 100);}"
+                            "QPushButton#searchBtn{"
+                            "border-image: url(:/assets/search/main_search_deldown.png);}"
+                            "QPushButton#searchBtn:hover{"
+                            "border-image: url(:/assets/search/main_search_delhighlight.png);}"
+                            "QPushButton#searchBtn:pressed{"
+                            "border-image: url(:/assets/search/main_search_delhighdown.png);}")
+                            .arg(mColorBackground.red())
+                            .arg(mColorBackground.green())
+                            .arg(mColorBackground.blue()));
+        } else if (event->type() == QEvent::FocusOut) {
+            updateSearchStyle();
+        }
+    }
+    return false;
+}
+
+// 更新搜索框样式
+void MainWindow::updateSearchStyle() {
+    ui->searchWidget->setStyleSheet(QString("QWidget#searchWidget{"
+                                            "background-color:rgba(%1,%2,%3,50);"
+                                            "border-bottom:1px solid rgba(%1,%2,%3,30);}"
+                                            "QPushButton#searchBtn{"
+                                            "border-image:url(:/assets/search/search_icon.png);}")
+                                            .arg(mColorBackground.red())
+                                            .arg(mColorBackground.green())
+                                            .arg(mColorBackground.blue()));
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
@@ -140,5 +183,94 @@ void MainWindow::onAppIconClicked() {
     if (sender()->objectName() == "app_skin") {
         Skin *skin = new Skin;
         skin->show();
+    }
+}
+
+// 初始化联系人
+void MainWindow::initContactTree() {
+    // 展开与收缩时的信号
+    connect(ui->treeWidget, SIGNAL(itemClicked(QTreeWidgetItem * , int)), this,
+            SLOT(onItemClicked(QTreeWidgetItem * , int)));
+    connect(ui->treeWidget, SIGNAL(itemExpanded(QTreeWidgetItem * )), this,
+            SLOT(onItemExpanded(QTreeWidgetItem * )));
+    connect(ui->treeWidget, SIGNAL(itemCollapsed(QTreeWidgetItem * )), this,
+            SLOT(onItemCollapsed(QTreeWidgetItem * )));
+    connect(ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem * , int)), this,
+            SLOT(onItemDoubleClicked(QTreeWidgetItem * , int)));
+
+    // 根节点
+    auto *pRootGroupItem = new QTreeWidgetItem;
+    pRootGroupItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
+    pRootGroupItem->setData(0, Qt::UserRole, 0);
+
+    auto *pItemName = new RootContactItem(true, ui->treeWidget);
+    pItemName->setText("星铭科技");
+
+    // 插入分组节点
+    ui->treeWidget->addTopLevelItem(pRootGroupItem);
+    ui->treeWidget->setItemWidget(pRootGroupItem, 0, pItemName);
+
+    QStringList compDeps;
+    compDeps << "技术部";
+    compDeps << "运营部";
+    compDeps << "市场部";
+    compDeps << "行政部";
+
+    for (int i = 0; i < compDeps.length(); ++i) {
+        addCompanyDeps(pRootGroupItem, compDeps.at(i));
+    }
+}
+
+// 添加联系人
+void MainWindow::addCompanyDeps(QTreeWidgetItem *pRootGroupItem, const QString &deps) {
+    auto *pChild = new QTreeWidgetItem;
+    QPixmap pix;
+    pix.load(":/assets/head_mask.png");
+
+    // 子项数据设置为1，进行区别
+    pChild->setData(0, Qt::UserRole, 1);
+    auto *pContactItem = new ContactItem(ui->treeWidget);
+    pContactItem->setAvatarPixmap(getRoundImage(QPixmap(":/assets/avatar.bmp"),
+                                                pix, pContactItem->getAvatarSize()));
+    pContactItem->setUserName(deps);
+    pRootGroupItem->addChild(pChild);
+    ui->treeWidget->setItemWidget(pChild, 0, pContactItem);
+}
+
+// 点击联系人 Item
+void MainWindow::onItemClicked(QTreeWidgetItem *item, int) {
+    bool isChild = item->data(0, Qt::UserRole).toBool();
+    if (!isChild) {
+        item->setExpanded(!item->isExpanded());
+    }
+}
+
+// 展开联系人 Item
+void MainWindow::onItemExpanded(QTreeWidgetItem *item) {
+    bool isChild = item->data(0, Qt::UserRole).toBool();
+    if (!isChild) {
+        auto *pRootItem = dynamic_cast<RootContactItem *>(ui->treeWidget->itemWidget(item, 0));
+        if (pRootItem) {
+            pRootItem->setExpanded(true);
+        }
+    }
+}
+
+// 收缩联系人 Item
+void MainWindow::onItemCollapsed(QTreeWidgetItem *item) {
+    bool isChild = item->data(0, Qt::UserRole).toBool();
+    if (!isChild) {
+        auto *pRootItem = dynamic_cast<RootContactItem *>(ui->treeWidget->itemWidget(item, 0));
+        if (pRootItem) {
+            pRootItem->setExpanded(false);
+        }
+    }
+}
+
+// 双击联系人 Item
+void MainWindow::onItemDoubleClicked(QTreeWidgetItem *item, int) {
+    bool isChild = item->data(0, Qt::UserRole).toBool();
+    if (isChild) {
+        // WindowManger::getInstance()->addNewTalkWindow(item->data(0,Qt::UserRole + 1).toString());
     }
 }

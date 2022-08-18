@@ -15,7 +15,11 @@ SOURCES += \
     views/skin/skin.cpp \
     components/clickLabel/clickLabel.cpp \
     components/systemTray/systemTray.cpp \
-    components/systemTray/customMenu.cpp
+    components/systemTray/customMenu.cpp \
+    components/contactItem/contactItem.cpp \
+    views/main/rootContactItem.cpp \
+    views/talk/talkWindow.cpp \
+    views/talk/talkWindowShell.cpp
 
 HEADERS += \
     views/main/mainWindow.h \
@@ -30,12 +34,19 @@ HEADERS += \
     views/skin/skin.h \
     components/clickLabel/clickLabel.h \
     components/systemTray/systemTray.h \
-    components/systemTray/customMenu.h
+    components/systemTray/customMenu.h \
+    components/contactItem/contactItem.h \
+    views/main/rootContactItem.h \
+    views/talk/talkWindow.h \
+    views/talk/talkWindowShell.h
 
 FORMS += \
     views/main/mainWindow.ui \
     views/login/login.ui \
-    views/skin/skin.ui
+    views/skin/skin.ui \
+    views/talk/talkWindowShell.ui \
+    views/talk/talkWindow.ui \
+    components/contactItem/contactItem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
