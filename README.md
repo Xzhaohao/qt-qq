@@ -4,7 +4,4 @@
 <img src="/img/login.png" width="50%"  alt="展示图"/>
 
 - 主页
-<img src="/img/main.png" width="50%"  alt="展示图"/>
-
-- 修改皮肤
-<img src="/img/skin.png" width="50%"  alt="展示图"/>
+<img src="/img/main.png" width="37%"  alt="展示图"/><img src="/img/skin.png" width="37%"  alt="展示图"/>

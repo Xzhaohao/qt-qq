@@ -19,7 +19,9 @@ SOURCES += \
     components/contactItem/contactItem.cpp \
     views/main/rootContactItem.cpp \
     views/talk/talkWindow.cpp \
-    views/talk/talkWindowShell.cpp
+    views/talk/talkWindowShell.cpp \
+    views/emotion/emotionWindow.cpp \
+    views/emotion/emotionLabelItem.cpp
 
 HEADERS += \
     views/main/mainWindow.h \
@@ -38,7 +40,10 @@ HEADERS += \
     components/contactItem/contactItem.h \
     views/main/rootContactItem.h \
     views/talk/talkWindow.h \
-    views/talk/talkWindowShell.h
+    views/talk/talkWindowShell.h \
+    views/talk/groupType.h
+    views/emotion/emotionWindow.h \
+    views/emotion/emotionLabelItem.h
 
 FORMS += \
     views/main/mainWindow.ui \
@@ -46,6 +51,7 @@ FORMS += \
     views/skin/skin.ui \
     views/talk/talkWindowShell.ui \
     views/talk/talkWindow.ui \
+    views/emotion/emotionWindow.ui \
     components/contactItem/contactItem.ui
 
 # Default rules for deployment.

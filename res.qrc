@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>styles/EmotionWindow.qss</file>
+        <file>styles/emotionWindow.qss</file>
         <file>styles/mainWindow.qss</file>
         <file>styles/menu.qss</file>
-        <file>styles/ReceiveFile.qss</file>
-        <file>styles/SendFile.qss</file>
+        <file>styles/receiveFile.qss</file>
+        <file>styles/sendFile.qss</file>
         <file>styles/skinWindow.qss</file>
-        <file>styles/TalkWindow.qss</file>
+        <file>styles/talkWindow.qss</file>
         <file>styles/titleBar.qss</file>
         <file>styles/login.qss</file>
         <file>assets/0.png</file>

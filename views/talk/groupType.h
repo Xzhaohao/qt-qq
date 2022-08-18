@@ -1,0 +1,4 @@
+#ifndef TALK_GROUP_TYPE_H
+#define TALK_GROUP_TYPE_H
+
+#endif // TALK_GROUP_TYPE_H
