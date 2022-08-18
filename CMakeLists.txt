@@ -31,7 +31,11 @@ add_executable(
         views/skin/skin.cpp
         views/skin/skin.h
         components/clickLabel/clickLabel.cpp
-        components/clickLabel/clickLabel.h)
+        components/clickLabel/clickLabel.h
+        components/systemTray/systemTray.cpp
+        components/systemTray/systemTray.h
+        components/systemTray/customMenu.cpp
+        components/systemTray/customMenu.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "

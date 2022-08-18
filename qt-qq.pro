@@ -13,7 +13,9 @@ SOURCES += \
     utils/commonUtils.cpp \
     views/login/login.cpp \
     views/skin/skin.cpp \
-    components/clickLabel/clickLabel.cpp
+    components/clickLabel/clickLabel.cpp \
+    components/systemTray/systemTray.cpp \
+    components/systemTray/customMenu.cpp
 
 HEADERS += \
     views/main/mainWindow.h \
@@ -26,7 +28,9 @@ HEADERS += \
     views/login/login.h \
     views/main/mainProxyStyle.h \
     views/skin/skin.h \
-    components/clickLabel/clickLabel.h
+    components/clickLabel/clickLabel.h \
+    components/systemTray/systemTray.h \
+    components/systemTray/customMenu.h
 
 FORMS += \
     views/main/mainWindow.ui \

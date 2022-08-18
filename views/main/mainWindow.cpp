@@ -6,17 +6,31 @@ MainWindow::MainWindow(QWidget *parent) : BaseWindow(parent), ui(new Ui::MainWin
     setWindowFlags(windowFlags() | Qt::Tool);
     loadStyleSheet("mainWindow");
     initControl();
+    initTimer();
 }
 
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+// 自动升级，60秒一级
+void MainWindow::initTimer() {
+    auto *timer = new QTimer(this);
+    timer->setInterval(60000);
+    connect(timer, &QTimer::timeout, [this] {
+        static int level = 1;
+        if (level == 99) level = 1;
+        level++;
+        setLevelPixmap(level);
+    });
+    timer->start();
+}
+
 void MainWindow::initControl() {
     // 树获取焦点时不绘制边框
     ui->treeWidget->setStyle(new MainProxyStyle);
-    setLevelPixmap(26);
     setAvatarPixmap(":/assets/avatar.bmp");
+    setLevelPixmap(1);
     setStatusMenuIcon(":/assets/StatusSucceeded.png");
 
     auto *appUpLayout = new QHBoxLayout;
@@ -37,10 +51,19 @@ void MainWindow::initControl() {
     ui->bottomLayout_up->addWidget(addOtherAppExtension(":/assets/app/app_11.png", "app_11"));
     ui->bottomLayout_up->addWidget(addOtherAppExtension(":/assets/app/app_9.png", "app_9"));
     ui->bottomLayout_up->addStretch();
+
+    connect(ui->sysMin, SIGNAL(clicked(bool)), this, SLOT(onShowHide(bool)));
+    connect(ui->sysClose, SIGNAL(clicked(bool)), this, SLOT(onShowClose(bool)));
+
+    // 设置系统托盘
+    new SystemTray(this);
 }
 
 void MainWindow::setUsername(const QString &username) {
-
+    ui->nameLabel->adjustSize();
+    // 省略过长文本
+    QString name = ui->nameLabel->fontMetrics().elidedText(username, Qt::ElideRight, ui->nameLabel->width());
+    ui->nameLabel->setText(name);
 }
 
 void MainWindow::setLevelPixmap(int level) {
@@ -97,6 +120,19 @@ QWidget *MainWindow::addOtherAppExtension(const QString &appPath, const QString 
 
     connect(btn, &QPushButton::clicked, this, &MainWindow::onAppIconClicked);
     return btn;
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    setUsername("琉璃之鸟");
+    BaseWindow::resizeEvent(event);
+}
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *event) {
+    return true;
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+    BaseWindow::mousePressEvent(event);
 }
 
 void MainWindow::onAppIconClicked() {

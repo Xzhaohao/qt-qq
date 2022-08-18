@@ -1,10 +1,12 @@
 #ifndef __MAIN_WINDOW_H
 #define __MAIN_WINDOW_H
 
+#include <QTimer>
 #include "ui_mainWindow.h"
 #include "mainProxyStyle.h"
 #include "../base/baseWindow.h"
 #include "../skin/skin.h"
+#include "../../components/systemTray/systemTray.h"
 
 class MainWindow : public BaseWindow {
 Q_OBJECT
@@ -15,6 +17,8 @@ public:
     ~MainWindow() override;
 
 public:
+    void initTimer();
+
     void initControl();
 
     void setUsername(const QString &username);
@@ -28,6 +32,13 @@ public:
 
     // 添加应用部件
     QWidget *addOtherAppExtension(const QString &appPath, const QString &appName);
+
+private:
+    void resizeEvent(QResizeEvent *event) override;
+
+    bool eventFilter(QObject *obj, QEvent *event) override;
+
+    void mousePressEvent(QMouseEvent *event) override;
 
 private slots:
 

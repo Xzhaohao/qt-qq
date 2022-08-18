@@ -2,7 +2,7 @@
     <qresource prefix="/">
         <file>styles/EmotionWindow.qss</file>
         <file>styles/mainWindow.qss</file>
-        <file>styles/Menu.qss</file>
+        <file>styles/menu.qss</file>
         <file>styles/ReceiveFile.qss</file>
         <file>styles/SendFile.qss</file>
         <file>styles/skinWindow.qss</file>
