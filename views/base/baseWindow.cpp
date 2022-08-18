@@ -40,18 +40,22 @@ void BaseWindow::loadStyleSheet(const QString &styleName) {
     file.open(QFile::ReadOnly);
     if (file.isOpen()) {
         setStyleSheet("");
-        QString qsStyleSheet = QLatin1String(file.readAll());
 
         // 获取用户当前的皮肤RGB值
         QString r = QString::number(mColorBackground.red());
         QString g = QString::number(mColorBackground.green());
         QString b = QString::number(mColorBackground.blue());
 
-        qsStyleSheet += QString("QWidget[titleSkin=true]{background-color:rgb(%1,%2,%3);"
-                                "border-top-left-radius:4px;}"
-                                "QWidget[bottomSkin=true]{border-top:1px solid rgba(%1,%2,%3,100);"
-                                "background-color:rgba(%1,%2,%3,50);border-bottom-left-radius:4px;"
-                                "border-bottom-right-radius:4px;}").arg(r).arg(g).arg(b);
+        QString qsStyleSheet = QString("QWidget[titleSkin=true] {"
+                                "background-color: rgb(%1, %2, %3);"
+                                "border-top-left-radius: 4px;}"
+                                "QWidget[bottomSkin=true] {"
+                                "border-top: 1px solid rgba(%1, %2, %3, 100);"
+                                "background-color: rgba(%1, %2, %3, 50);"
+                                "border-bottom-left-radius: 4px;"
+                                "border-bottom-right-radius: 4px;}").arg(r).arg(g).arg(b);
+
+        qsStyleSheet += QLatin1String(file.readAll());
 
         setStyleSheet(qsStyleSheet);
     }

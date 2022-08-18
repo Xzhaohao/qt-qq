@@ -26,7 +26,8 @@ add_executable(
         manger/notifyManger.h
         utils/customProxyStyle.h
         views/login/login.cpp
-        views/login/login.h)
+        views/login/login.h
+        views/main/mainProxyStyle.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "

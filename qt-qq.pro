@@ -21,7 +21,8 @@ HEADERS += \
     manger/notifyManger.h \
     utils/commonUtils.h \
     utils/customProxyStyle.h \
-    views/login/login.h
+    views/login/login.h \
+    views/main/mainProxyStyle.h
 
 FORMS += \
     views/main/mainWindow.ui \

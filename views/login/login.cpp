@@ -2,6 +2,7 @@
 
 Login::Login(QWidget *parent) : BaseWindow(parent), ui(new Ui::Login) {
     ui->setupUi(this);
+    // setAttribute(Qt::WA_DeleteOnClose);
     initTitleBar();
     setTitleBarTitle("", ":/assets/qqlogoclassic.png");
     loadStyleSheet("login");
@@ -17,7 +18,7 @@ void Login::initControl() {
     headLabel->setFixedSize(68, 68);
 
     QPixmap pix(":/assets/head_mask.png");
-    headLabel->setPixmap(getRoundImage(QPixmap(":/assets/girl.png"), pix, headLabel->size()));
+    headLabel->setPixmap(getRoundImage(QPixmap(":/assets/avatar.bmp"), pix, headLabel->size()));
     headLabel->move(width() / 2 - 34, ui->titleWidget->height() - 34);
 
     connect(ui->loginBtn, &QPushButton::clicked, this, &Login::onLoginBtnClicked);

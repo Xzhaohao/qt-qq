@@ -155,12 +155,13 @@ void TitleBar::mouseDoubleClickEvent(QMouseEvent *event) {
 
 // 通过鼠标按下、鼠标移动、鼠标释放事件实现拖动标题栏打到移动窗口效果
 void TitleBar::mousePressEvent(QMouseEvent *event) {
-    // todo 优化
-    if (mButtonType == MIN_MAX_BUTTON && mButtonMax->isVisible()) {
-        // 在窗口最大化时，禁止拖动
-        mIsPressed = false;
-        // globalPos()返回事件发生时鼠标坐标的全局位置
-        mStartMovePos = event->globalPos();
+    if (mButtonType == MIN_MAX_BUTTON) {
+        if (mButtonMax->isVisible()) {
+            // 在窗口最大化时，禁止拖动
+            mIsPressed = true;
+            // globalPos()返回事件发生时鼠标坐标的全局位置
+            mStartMovePos = event->globalPos();
+        }
     } else {
         mIsPressed = true;
         mStartMovePos = event->globalPos();
