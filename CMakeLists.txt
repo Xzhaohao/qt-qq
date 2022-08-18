@@ -27,7 +27,11 @@ add_executable(
         utils/customProxyStyle.h
         views/login/login.cpp
         views/login/login.h
-        views/main/mainProxyStyle.h)
+        views/main/mainProxyStyle.h
+        views/skin/skin.cpp
+        views/skin/skin.h
+        components/clickLabel/clickLabel.cpp
+        components/clickLabel/clickLabel.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "

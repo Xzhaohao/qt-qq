@@ -5,7 +5,7 @@
         <file>styles/Menu.qss</file>
         <file>styles/ReceiveFile.qss</file>
         <file>styles/SendFile.qss</file>
-        <file>styles/SkinWindow.qss</file>
+        <file>styles/skinWindow.qss</file>
         <file>styles/TalkWindow.qss</file>
         <file>styles/titleBar.qss</file>
         <file>styles/login.qss</file>

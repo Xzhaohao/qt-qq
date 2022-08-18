@@ -11,7 +11,9 @@ SOURCES += \
     components/titleBar/titleBar.cpp \
     manger/notifyManger.cpp \
     utils/commonUtils.cpp \
-    views/login/login.cpp
+    views/login/login.cpp \
+    views/skin/skin.cpp \
+    components/clickLabel/clickLabel.cpp
 
 HEADERS += \
     views/main/mainWindow.h \
@@ -22,11 +24,14 @@ HEADERS += \
     utils/commonUtils.h \
     utils/customProxyStyle.h \
     views/login/login.h \
-    views/main/mainProxyStyle.h
+    views/main/mainProxyStyle.h \
+    views/skin/skin.h \
+    components/clickLabel/clickLabel.h
 
 FORMS += \
     views/main/mainWindow.ui \
-    views/login/login.ui
+    views/login/login.ui \
+    views/skin/skin.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
