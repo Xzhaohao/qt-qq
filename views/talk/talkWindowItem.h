@@ -14,7 +14,7 @@ public:
     ~TalkWindowItem() override;
 
 public:
-    void setAvatarPixmap(const QPixmap &pixmap);
+    void setAvatarPixmap(const QPixmap &avatar);
 
     void setMsgLabelContent(const QString &msg);
 

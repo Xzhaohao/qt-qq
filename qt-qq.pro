@@ -1,4 +1,4 @@
-QT       += core gui sql xml network webenginewidgets webchannel
+QT       += core gui sql xml network webenginewidgets webchannel webengine
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,6 +18,8 @@ SOURCES += \
     components/systemTray/systemTray.cpp \
     components/systemTray/customMenu.cpp \
     components/contactItem/contactItem.cpp \
+    components/msgEdit/QMsgTextEdit.cpp \
+    components/msgView/msgWebView.cpp \
     views/main/rootContactItem.cpp \
     views/talk/talkWindow.cpp \
     views/talk/talkWindowShell.cpp \
@@ -41,10 +43,11 @@ HEADERS += \
     components/systemTray/systemTray.h \
     components/systemTray/customMenu.h \
     components/contactItem/contactItem.h \
+    components/msgEdit/QMsgTextEdit.h \
+    components/msgView/msgWebView.h \
     views/main/rootContactItem.h \
     views/talk/talkWindow.h \
     views/talk/talkWindowShell.h \
-    views/talk/groupType.h \
     views/emotion/emotionWindow.h \
     views/emotion/emotionLabelItem.h \
     views/talk/talkWindowItem.h

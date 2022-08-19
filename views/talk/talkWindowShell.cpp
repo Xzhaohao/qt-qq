@@ -5,12 +5,17 @@ TalkWindowShell::TalkWindowShell(QWidget *parent) : BaseWindow(parent), ui(new U
     setAttribute(Qt::WA_DeleteOnClose);
     loadStyleSheet("talkWindow");
     initControl();
+    initTcpSocket();
 }
 
 TalkWindowShell::~TalkWindowShell() {
     delete ui;
     delete mEmotionWindow;
     mEmotionWindow = nullptr;
+}
+
+const QMap<QListWidgetItem *, QWidget *> &TalkWindowShell::getTalkWindowItemMap() const {
+    return mTalkWindowItemMap;
 }
 
 void TalkWindowShell::initControl() {
@@ -35,13 +40,45 @@ void TalkWindowShell::setCurrentWidget(QWidget *widget) {
 }
 
 // 添加聊天窗口
-void TalkWindowShell::addTalkWindow(TalkWindow *talkWindow, TalkWindowItem *talkWindowItem, GroupType groupType) {
+void TalkWindowShell::addTalkWindow(TalkWindow *talkWindow, TalkWindowItem *talkWindowItem, const QString &uid) {
     ui->rightStackedWidget->addWidget(talkWindow);
     connect(mEmotionWindow, SIGNAL(signalEmotionHide()), talkWindow, SLOT(onSetEmotionBtnStatus()));
 
     auto *aItem = new QListWidgetItem(ui->listWidget);
     mTalkWindowItemMap.insert(aItem, talkWindow);
     aItem->setSelected(true);
+
+    // 判断群聊还是单聊
+    QSqlQueryModel sqlDepModel;
+    QString strQuery = QString("select picture from tab_department where departmentID = %1").arg(uid);
+    sqlDepModel.setQuery(strQuery);
+    int rows = sqlDepModel.rowCount();
+    if (rows == 0) { // 单聊
+        strQuery = QString("SELECT picture FROM tab_employees WHERE employeeID = %1").arg(uid);
+        sqlDepModel.setQuery(strQuery);
+    }
+    QModelIndex index = sqlDepModel.index(0, 0);
+    QImage img;
+    img.load(sqlDepModel.data(index).toString());
+
+    talkWindowItem->setAvatarPixmap(QPixmap::fromImage(img));
+    ui->listWidget->addItem(aItem);
+    ui->listWidget->setItemWidget(aItem, talkWindowItem);
+
+    onTalkWindowItemClicked(aItem);
+
+    connect(talkWindowItem, &TalkWindowItem::signalCloseClocked, [talkWindowItem, talkWindow, aItem, this]() {
+        mTalkWindowItemMap.remove(aItem);
+        talkWindow->close();
+        ui->listWidget->takeItem(ui->listWidget->row(aItem));
+        delete talkWindowItem;
+        ui->rightStackedWidget->removeWidget(talkWindow);
+
+        // 如果聊天列表关闭完了，则关闭整个窗口
+        if (ui->rightStackedWidget->count() < 1) {
+            close();
+        }
+    });
 }
 
 // 表情按钮被点击
@@ -66,4 +103,13 @@ void TalkWindowShell::onEmotionItemClicked(int emotionNum) {
     if (curTalkWindow) {
         curTalkWindow->addEmotionImage(emotionNum);
     }
+}
+
+void TalkWindowShell::initTcpSocket() {
+    mTcpClientSocket = new QTcpSocket(this);
+    mTcpClientSocket->connectToHost("127.0.0.1", TCP_PORT);
+}
+
+void TalkWindowShell::updateSendTcpMsg(QString &strData, int &msgType, const QString& fileName) {
+
 }

@@ -43,6 +43,9 @@ private:
 private:
     void initControl();
 
+    // 获取登录用户头像
+    QString getAvatarPath();
+
     // 初始化计时器
     void initTimer();
 
@@ -53,7 +56,7 @@ private:
     void initContactTree();
 
     // 添加部门
-    void addCompanyDeps(QTreeWidgetItem *pRootGroupItem, const QString &deps);
+    void addCompanyDeps(QTreeWidgetItem *pRootGroupItem, int depId);
 
 private slots:
 
@@ -69,9 +72,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
-    // 所有分组的分组项
-    QMap<QTreeWidgetItem *, QString> mGroupMap;
 };
 
 #endif // __MAIN_WINDOW_H

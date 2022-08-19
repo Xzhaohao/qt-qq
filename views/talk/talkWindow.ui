@@ -127,9 +127,6 @@
           <property name="focusPolicy">
            <enum>Qt::ClickFocus</enum>
           </property>
-          <property name="toolTip">
-           <string>最小化</string>
-          </property>
           <property name="statusTip">
            <string>最小化</string>
           </property>
@@ -167,9 +164,6 @@
           <property name="focusPolicy">
            <enum>Qt::ClickFocus</enum>
           </property>
-          <property name="toolTip">
-           <string>关闭</string>
-          </property>
           <property name="statusTip">
            <string>关闭</string>
           </property>
@@ -193,12 +187,6 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
         </property>
         <property name="maximumSize">
          <size>
@@ -234,7 +222,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>35</height>
+          <height>34</height>
          </size>
         </property>
         <property name="maximumSize">
@@ -493,7 +481,7 @@
             <number>1</number>
            </property>
            <item>
-            <widget class="QWidget" name="msgWidget" native="true"/>
+            <widget class="MsgWebView" name="msgWidget" native="true"/>
            </item>
           </layout>
          </widget>
@@ -520,21 +508,6 @@
         </size>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <property name="leftMargin">
-         <number>0</number>
-        </property>
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <property name="rightMargin">
-         <number>0</number>
-        </property>
-        <property name="bottomMargin">
-         <number>3</number>
-        </property>
         <item>
          <widget class="QWidget" name="moduleWidget" native="true">
           <property name="sizePolicy">
@@ -644,7 +617,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit">
+         <widget class="QMsgTextEdit" name="textEdit">
           <property name="contextMenuPolicy">
            <enum>Qt::NoContextMenu</enum>
           </property>
@@ -655,15 +628,6 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <property name="topMargin">
-           <number>3</number>
-          </property>
-          <property name="rightMargin">
-           <number>6</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
@@ -694,9 +658,6 @@
             <property name="text">
              <string>关闭</string>
             </property>
-            <property name="titleSkin" stdset="0">
-             <bool>true</bool>
-            </property>
            </widget>
           </item>
           <item>
@@ -715,9 +676,6 @@
             </property>
             <property name="text">
              <string>发送</string>
-            </property>
-            <property name="titleSkin" stdset="0">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -765,9 +723,6 @@
         <widget class="QScrollArea" name="scrollArea">
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
          </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -830,6 +785,19 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QMsgTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>../../components/msgEdit/QMsgTextEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MsgWebView</class>
+   <extends>QWebEngineView</extends>
+   <header>../../components/msgView/msgWebView.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

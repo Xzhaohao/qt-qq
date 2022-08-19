@@ -1,10 +1,16 @@
 #include "mainWindow.h"
 
+extern QString gLoginEmployeeID;
+QString gstrLoginHeadPath;
+
 MainWindow::MainWindow(QWidget *parent) : BaseWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     setAttribute(Qt::WA_DeleteOnClose);
     setWindowFlags(windowFlags() | Qt::Tool);
     loadStyleSheet("mainWindow");
+
+    gstrLoginHeadPath = getAvatarPath();
+    setAvatarPixmap(gstrLoginHeadPath);
     initControl();
     initTimer();
 }
@@ -26,10 +32,18 @@ void MainWindow::initTimer() {
     timer->start();
 }
 
+QString MainWindow::getAvatarPath() {
+    QSqlQuery query(QString("SELECT picture FROM tab_employees WHERE employeeID=%1").arg(gLoginEmployeeID));
+    query.exec();
+    query.next();
+    QString avatar = query.value(0).toString();
+    gstrLoginHeadPath = avatar;
+    return avatar;
+}
+
 void MainWindow::initControl() {
     // 树获取焦点时不绘制边框
     ui->treeWidget->setStyle(new MainProxyStyle);
-    setAvatarPixmap(":/assets/avatar.bmp");
     setLevelPixmap(1);
     setStatusMenuIcon(":/assets/StatusSucceeded.png");
 
@@ -208,41 +222,55 @@ void MainWindow::initContactTree() {
     pRootGroupItem->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
     pRootGroupItem->setData(0, Qt::UserRole, 0);
 
+    // 获取公司部门ID
+    QSqlQuery query(QString("SELECT departmentID FROM tab_department WHERE department_name = '%1'")
+                            .arg("公司群"));
+    query.exec();
+    query.first();
+    int CompDepID = query.value(0).toInt();
+
+    // 获取登陆者所在的部门ID
+    QSqlQuery querySelfDepID(QString("SELECT departmentID FROM tab_employees WHERE employeeID = %1")
+                                     .arg(gLoginEmployeeID));
+    querySelfDepID.exec();
+    querySelfDepID.first();
+    int SelfDepID = querySelfDepID.value(0).toInt();
+
+    // 初始化公司群及所在的群
+    addCompanyDeps(pRootGroupItem, CompDepID);
+    addCompanyDeps(pRootGroupItem, SelfDepID);
+
     auto *pItemName = new RootContactItem(true, ui->treeWidget);
     pItemName->setText("星铭科技");
 
     // 插入分组节点
     ui->treeWidget->addTopLevelItem(pRootGroupItem);
     ui->treeWidget->setItemWidget(pRootGroupItem, 0, pItemName);
-
-    QStringList compDeps;
-    compDeps << "技术部";
-    compDeps << "运营部";
-    compDeps << "市场部";
-    compDeps << "行政部";
-
-    for (int i = 0; i < compDeps.length(); ++i) {
-        addCompanyDeps(pRootGroupItem, compDeps.at(i));
-    }
 }
 
 // 添加联系人
-void MainWindow::addCompanyDeps(QTreeWidgetItem *pRootGroupItem, const QString &deps) {
+void MainWindow::addCompanyDeps(QTreeWidgetItem *pRootGroupItem, int depId) {
     auto *pChild = new QTreeWidgetItem;
     QPixmap pix;
     pix.load(":/assets/head_mask.png");
 
     // 子项数据设置为1，进行区别
     pChild->setData(0, Qt::UserRole, 1);
-    pChild->setData(0, Qt::UserRole + 1, QString::number((int) pChild));
+    pChild->setData(0, Qt::UserRole + 1, depId);
+
+    // 获取部门头像路径
+    QSqlQuery queryDep(QString("SELECT picture,department_name FROM tab_department WHERE departmentID = %1")
+                               .arg(depId));
+    queryDep.exec();
+    queryDep.first();
+    QPixmap groupPix;
+    groupPix.load(queryDep.value(0).toString());
+
     auto *pContactItem = new ContactItem(ui->treeWidget);
-    pContactItem->setAvatarPixmap(getRoundImage(QPixmap(":/assets/avatar.bmp"),
-                                                pix, pContactItem->getAvatarSize()));
-    pContactItem->setUserName(deps);
+    pContactItem->setAvatarPixmap(getRoundImage(groupPix, pix, pContactItem->getAvatarSize()));
+    pContactItem->setUserName(queryDep.value(1).toString());
     pRootGroupItem->addChild(pChild);
     ui->treeWidget->setItemWidget(pChild, 0, pContactItem);
-
-    mGroupMap.insert(pChild, deps);
 }
 
 // 点击联系人 Item
@@ -279,16 +307,6 @@ void MainWindow::onItemCollapsed(QTreeWidgetItem *item) {
 void MainWindow::onItemDoubleClicked(QTreeWidgetItem *item, int) {
     bool isChild = item->data(0, Qt::UserRole).toBool();
     if (isChild) {
-        // WindowManger::getInstance()->addNewTalkWindow(item->data(0,Qt::UserRole + 1).toString());
-        QString group = mGroupMap.value(item);
-        if (group == "技术部") {
-            WindowManger::getInstance()->addNewTalkWindow(item->data(0, Qt::UserRole + 1).toString());
-        } else if (group == "运营部") {
-
-        } else if (group == "市场部") {
-
-        } else {
-
-        }
+        WindowManger::getInstance()->addNewTalkWindow(item->data(0, Qt::UserRole + 1).toString());
     }
 }

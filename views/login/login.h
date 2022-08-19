@@ -1,6 +1,7 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
+#include <QMessageBox>
 #include "ui_login.h"
 #include "../base/baseWindow.h"
 #include "../main/mainWindow.h"
@@ -19,6 +20,10 @@ private slots:
 
 private:
     void initControl();
+
+    bool connectMySql();
+
+    bool verifyAccount();
 
 private:
     Ui::Login *ui;

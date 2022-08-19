@@ -14,9 +14,9 @@ void TalkWindowItem::initControl() {
     connect(ui->closeBtn, SIGNAL(clicked(bool)), this, SIGNAL(signalCloseClocked()));
 }
 
-void TalkWindowItem::setAvatarPixmap(const QPixmap &pixmap) {
+void TalkWindowItem::setAvatarPixmap(const QPixmap &avatar) {
     QPixmap mask = QPixmap(":/assets/head_mask.png");
-    const QPixmap &avatarPix = CommonUtils::getRoundImage(pixmap, mask, ui->avatarLabel->size());
+    const QPixmap &avatarPix = CommonUtils::getRoundImage(avatar, mask, ui->avatarLabel->size());
     ui->avatarLabel->setPixmap(avatarPix);
 }
 

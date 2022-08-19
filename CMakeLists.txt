@@ -2,14 +2,23 @@
 project(QtQQ)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_PREFIX_PATH "C:/Qt/Qt5.12.12/5.12.12/mingw73_64")
+set(CMAKE_PREFIX_PATH "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64")
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(QT_VERSION 5)
-set(REQUIRED_LIBS Core Gui Widgets Sql Xml Network WebChannel)
-set(REQUIRED_LIBS_QUALIFIED Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Sql Qt5::Xml Qt5::Network Qt5::WebChannel)
+set(REQUIRED_LIBS Core Gui Widgets Sql Xml Network WebChannel WebEngineWidgets WebEngine)
+set(REQUIRED_LIBS_QUALIFIED
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
+        Qt5::Sql
+        Qt5::Xml
+        Qt5::Network
+        Qt5::WebChannel
+        Qt5::WebEngine
+        Qt5::WebEngineWidgets)
 
 add_executable(
         ${PROJECT_NAME} main.cpp
@@ -44,7 +53,6 @@ add_executable(
         views/talk/talkWindow.h
         views/talk/talkWindowShell.cpp
         views/talk/talkWindowShell.h
-        views/talk/groupType.h
         views/emotion/emotionWindow.cpp
         views/emotion/emotionWindow.h
         views/emotion/emotionLabelItem.cpp
@@ -52,7 +60,11 @@ add_executable(
         views/talk/talkWindowItem.cpp
         views/talk/talkWindowItem.h
         manger/windowManger.cpp
-        manger/windowManger.h)
+        manger/windowManger.h
+        components/msgEdit/QMsgTextEdit.cpp
+        components/msgEdit/QMsgTextEdit.h
+        components/msgView/msgWebView.cpp
+        components/msgView/msgWebView.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
@@ -66,7 +78,7 @@ find_package(Qt${QT_VERSION} COMPONENTS ${REQUIRED_LIBS} REQUIRED)
 target_link_libraries(${PROJECT_NAME} ${REQUIRED_LIBS_QUALIFIED})
 if (WIN32)
     set(DEBUG_SUFFIX)
-    if (CMAKE_BUILD_TYPE MATCHES "Debug")
+    if (MSVC AND CMAKE_BUILD_TYPE MATCHES "Debug")
         set(DEBUG_SUFFIX "d")
     endif ()
     set(QT_INSTALL_PATH "${CMAKE_PREFIX_PATH}")
@@ -85,10 +97,36 @@ if (WIN32)
                 "${QT_INSTALL_PATH}/plugins/platforms/qwindows${DEBUG_SUFFIX}.dll"
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>/plugins/platforms/")
     endif ()
-    foreach (QT_LIB ${REQUIRED_LIBS})
+    foreach (QT_LIB Core Gui Widgets)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy
-                "${QT_INSTALL_PATH}/bin/Qt${QT_VERSION}${QT_LIB}${DEBUG_SUFFIX}.dll"
+                "${QT_INSTALL_PATH}/bin/Qt5${QT_LIB}${DEBUG_SUFFIX}.dll"
                 "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
     endforeach (QT_LIB)
+
+    #    WebEngineWidgets
+    if (TRUE)
+        MESSAGE("copy WebEngineWidgets")
+        # copy WebEngineWidgets 模块的依赖 *.dll
+        foreach (WebEngineWidgets_dependency Network Positioning PrintSupport Qml QmlModels Quick QuickWidgets WebChannel WebEngineCore WebEngineWidgets)
+            add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                    COMMAND ${CMAKE_COMMAND} -E copy
+                    "${QT_INSTALL_PATH}/bin/Qt5${WebEngineWidgets_dependency}${DEBUG_SUFFIX}.dll"
+                    "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
+        endforeach (WebEngineWidgets_dependency)
+        # copy  WebEngineWidgets 模块的依赖 QtWebEngineProcess.exe
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy "${QT_INSTALL_PATH}/bin/QtWebEngineProcess${DEBUG_SUFFIX}.exe"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
+        # copy  WebEngineWidgets 模块的依赖 translations 目录
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${QT_INSTALL_PATH}/translations"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/translations")
+        # copy  WebEngineWidgets 模块的依赖 translations 目录
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_directory
+                "${QT_INSTALL_PATH}/resources"
+                "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources")
+    endif ()
 endif ()

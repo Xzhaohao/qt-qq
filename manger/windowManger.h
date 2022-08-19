@@ -1,5 +1,5 @@
-#ifndef __WINDOW_MANGER_H
-#define __WINDOW_MANGER_H
+#ifndef QQ_WINDOW_MANGER_H
+#define QQ_WINDOW_MANGER_H
 
 #include <QObject>
 #include "../views/talk/talkWindowShell.h"
@@ -33,4 +33,4 @@ private:
     QString mStrCreatingTalkId = "";
 };
 
-#endif // __WINDOW_MANGER_H
+#endif // QQ_WINDOW_MANGER_H
