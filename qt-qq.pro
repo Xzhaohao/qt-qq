@@ -10,6 +10,7 @@ SOURCES += \
     views/base/baseWindow.cpp \
     components/titleBar/titleBar.cpp \
     manger/notifyManger.cpp \
+    manger/windowManger.cpp \
     utils/commonUtils.cpp \
     views/login/login.cpp \
     views/skin/skin.cpp \
@@ -21,7 +22,8 @@ SOURCES += \
     views/talk/talkWindow.cpp \
     views/talk/talkWindowShell.cpp \
     views/emotion/emotionWindow.cpp \
-    views/emotion/emotionLabelItem.cpp
+    views/emotion/emotionLabelItem.cpp \
+    views/talk/talkWindowItem.cpp
 
 HEADERS += \
     views/main/mainWindow.h \
@@ -29,6 +31,7 @@ HEADERS += \
     components/titleBar/titleBar.h \
     components/titleBar/buttonType.h \
     manger/notifyManger.h \
+    manger/windowManger.h \
     utils/commonUtils.h \
     utils/customProxyStyle.h \
     views/login/login.h \
@@ -41,9 +44,10 @@ HEADERS += \
     views/main/rootContactItem.h \
     views/talk/talkWindow.h \
     views/talk/talkWindowShell.h \
-    views/talk/groupType.h
+    views/talk/groupType.h \
     views/emotion/emotionWindow.h \
-    views/emotion/emotionLabelItem.h
+    views/emotion/emotionLabelItem.h \
+    views/talk/talkWindowItem.h
 
 FORMS += \
     views/main/mainWindow.ui \
@@ -52,6 +56,7 @@ FORMS += \
     views/talk/talkWindowShell.ui \
     views/talk/talkWindow.ui \
     views/emotion/emotionWindow.ui \
+    views/talk/talkWindowItem.ui \
     components/contactItem/contactItem.ui
 
 # Default rules for deployment.

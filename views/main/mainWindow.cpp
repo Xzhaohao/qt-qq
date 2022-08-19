@@ -175,6 +175,11 @@ void MainWindow::updateSearchStyle() {
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
+    if (qApp->widgetAt(event->pos()) != ui->searchInput && ui->searchInput->hasFocus()) {
+        ui->searchInput->clearFocus();
+    } else if (qApp->widgetAt(event->pos()) != ui->signature && ui->signature->hasFocus()) {
+        ui->signature->clearFocus();
+    }
     BaseWindow::mousePressEvent(event);
 }
 
@@ -229,12 +234,15 @@ void MainWindow::addCompanyDeps(QTreeWidgetItem *pRootGroupItem, const QString &
 
     // 子项数据设置为1，进行区别
     pChild->setData(0, Qt::UserRole, 1);
+    pChild->setData(0, Qt::UserRole + 1, QString::number((int) pChild));
     auto *pContactItem = new ContactItem(ui->treeWidget);
     pContactItem->setAvatarPixmap(getRoundImage(QPixmap(":/assets/avatar.bmp"),
                                                 pix, pContactItem->getAvatarSize()));
     pContactItem->setUserName(deps);
     pRootGroupItem->addChild(pChild);
     ui->treeWidget->setItemWidget(pChild, 0, pContactItem);
+
+    mGroupMap.insert(pChild, deps);
 }
 
 // 点击联系人 Item
@@ -272,5 +280,15 @@ void MainWindow::onItemDoubleClicked(QTreeWidgetItem *item, int) {
     bool isChild = item->data(0, Qt::UserRole).toBool();
     if (isChild) {
         // WindowManger::getInstance()->addNewTalkWindow(item->data(0,Qt::UserRole + 1).toString());
+        QString group = mGroupMap.value(item);
+        if (group == "技术部") {
+            WindowManger::getInstance()->addNewTalkWindow(item->data(0, Qt::UserRole + 1).toString());
+        } else if (group == "运营部") {
+
+        } else if (group == "市场部") {
+
+        } else {
+
+        }
     }
 }

@@ -9,7 +9,6 @@
 #ifndef UI_TALKWINDOW_H
 #define UI_TALKWINDOW_H
 
-#include <QMsgTextEdit.h>
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QFrame>
@@ -20,11 +19,11 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSplitter>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <msgWebview.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -53,7 +52,7 @@ public:
     QVBoxLayout *verticalLayout_4;
     QFrame *frameWidget;
     QVBoxLayout *verticalLayout_3;
-    MsgWebView *msgWidget;
+    QWidget *msgWidget;
     QWidget *bottomWidget;
     QVBoxLayout *verticalLayout_2;
     QWidget *moduleWidget;
@@ -61,7 +60,7 @@ public:
     QPushButton *faceBtn;
     QPushButton *fileopenBtn;
     QSpacerItem *horizontalSpacer_2;
-    QMsgTextEdit *textEdit;
+    QTextEdit *textEdit;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_3;
     QToolButton *closeBtn;
@@ -145,6 +144,7 @@ public:
         signLabel->setObjectName(QString::fromUtf8("signLabel"));
         sizePolicy.setHeightForWidth(signLabel->sizePolicy().hasHeightForWidth());
         signLabel->setSizePolicy(sizePolicy);
+        signLabel->setMinimumSize(QSize(0, 20));
         signLabel->setMaximumSize(QSize(16777215, 20));
         signLabel->setSizeIncrement(QSize(0, 20));
         QFont font1;
@@ -161,7 +161,7 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(funWidget->sizePolicy().hasHeightForWidth());
         funWidget->setSizePolicy(sizePolicy2);
-        funWidget->setMinimumSize(QSize(0, 34));
+        funWidget->setMinimumSize(QSize(0, 35));
         funWidget->setMaximumSize(QSize(16777215, 600));
         horizontalLayout_2 = new QHBoxLayout(funWidget);
         horizontalLayout_2->setSpacing(8);
@@ -258,7 +258,7 @@ public:
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 1, 0, 1);
-        msgWidget = new MsgWebView(frameWidget);
+        msgWidget = new QWidget(frameWidget);
         msgWidget->setObjectName(QString::fromUtf8("msgWidget"));
 
         verticalLayout_3->addWidget(msgWidget);
@@ -274,9 +274,10 @@ public:
         bottomWidget->setMinimumSize(QSize(0, 138));
         bottomWidget->setMaximumSize(QSize(16777215, 400));
         verticalLayout_2 = new QVBoxLayout(bottomWidget);
-        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setSpacing(0);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 3);
         moduleWidget = new QWidget(bottomWidget);
         moduleWidget->setObjectName(QString::fromUtf8("moduleWidget"));
         sizePolicy.setHeightForWidth(moduleWidget->sizePolicy().hasHeightForWidth());
@@ -315,7 +316,7 @@ public:
 
         verticalLayout_2->addWidget(moduleWidget);
 
-        textEdit = new QMsgTextEdit(bottomWidget);
+        textEdit = new QTextEdit(bottomWidget);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setContextMenuPolicy(Qt::NoContextMenu);
         textEdit->setFrameShape(QFrame::NoFrame);
@@ -325,6 +326,7 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(-1, 3, 6, 0);
         horizontalSpacer_3 = new QSpacerItem(348, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_4->addItem(horizontalSpacer_3);
@@ -333,6 +335,7 @@ public:
         closeBtn->setObjectName(QString::fromUtf8("closeBtn"));
         closeBtn->setMinimumSize(QSize(68, 24));
         closeBtn->setMaximumSize(QSize(68, 24));
+        closeBtn->setProperty("titleSkin", QVariant(true));
 
         horizontalLayout_4->addWidget(closeBtn);
 
@@ -340,6 +343,7 @@ public:
         sendBtn->setObjectName(QString::fromUtf8("sendBtn"));
         sendBtn->setMinimumSize(QSize(90, 24));
         sendBtn->setMaximumSize(QSize(90, 24));
+        sendBtn->setProperty("titleSkin", QVariant(true));
 
         horizontalLayout_4->addWidget(sendBtn);
 
@@ -362,6 +366,7 @@ public:
         scrollArea = new QScrollArea(widget);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
         scrollArea->setFrameShape(QFrame::NoFrame);
+        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
@@ -398,10 +403,16 @@ public:
     {
         TalkWindow->setWindowTitle(QApplication::translate("TalkWindow", "TalkWindow", nullptr));
         nameLabel->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        sysMin->setToolTip(QApplication::translate("TalkWindow", "\346\234\200\345\260\217\345\214\226", nullptr));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_STATUSTIP
         sysMin->setStatusTip(QApplication::translate("TalkWindow", "\346\234\200\345\260\217\345\214\226", nullptr));
 #endif // QT_NO_STATUSTIP
         sysMin->setText(QString());
+#ifndef QT_NO_TOOLTIP
+        sysClose->setToolTip(QApplication::translate("TalkWindow", "\345\205\263\351\227\255", nullptr));
+#endif // QT_NO_TOOLTIP
 #ifndef QT_NO_STATUSTIP
         sysClose->setStatusTip(QApplication::translate("TalkWindow", "\345\205\263\351\227\255", nullptr));
 #endif // QT_NO_STATUSTIP

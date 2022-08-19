@@ -9,6 +9,7 @@
 #include "../skin/skin.h"
 #include "../../components/systemTray/systemTray.h"
 #include "../../components/contactItem/contactItem.h"
+#include "../../manger/windowManger.h"
 
 class MainWindow : public BaseWindow {
 Q_OBJECT
@@ -68,6 +69,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    // 所有分组的分组项
+    QMap<QTreeWidgetItem *, QString> mGroupMap;
 };
 
 #endif // __MAIN_WINDOW_H

@@ -3,6 +3,7 @@
 
 #include "ui_talkWindowShell.h"
 #include "talkWindow.h"
+#include "talkWindowItem.h"
 #include "groupType.h"
 #include "../base/baseWindow.h"
 #include "../emotion/emotionWindow.h"

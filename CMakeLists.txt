@@ -48,7 +48,11 @@ add_executable(
         views/emotion/emotionWindow.cpp
         views/emotion/emotionWindow.h
         views/emotion/emotionLabelItem.cpp
-        views/emotion/emotionLabelItem.h)
+        views/emotion/emotionLabelItem.h
+        views/talk/talkWindowItem.cpp
+        views/talk/talkWindowItem.h
+        manger/windowManger.cpp
+        manger/windowManger.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
