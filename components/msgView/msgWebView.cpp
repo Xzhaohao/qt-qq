@@ -62,7 +62,7 @@ MsgWebView::MsgWebView(QWidget *parent) : QWebEngineView(parent), m_channel(new 
             strPicturePath = queryEmployeeModel.data(pictureModelIndex).toString();
 
             strExternal = "external_" + strEmployeeID;
-            MsgHtmlObj *msgHtmlObj = new MsgHtmlObj(this, strPicturePath);
+            auto *msgHtmlObj = new MsgHtmlObj(this, strPicturePath);
             m_channel->registerObject(strExternal, msgHtmlObj);
         }
     }
@@ -84,9 +84,9 @@ void MsgWebView::appendMsg(const QString &html, QString strObj) {
     QString strData;
 
 
-    for (int i = 0; i < msgList.size(); i++) {
-        if (msgList.at(i).at(0) == "img") {
-            QString imagePath = msgList.at(i).at(1);
+    for (const auto &i : msgList) {
+        if (i.at(0) == "img") {
+            QString imagePath = i.at(1);
             QPixmap pixmap;
 
             // 获取表情名称
@@ -119,8 +119,8 @@ void MsgWebView::appendMsg(const QString &html, QString strObj) {
                     .arg(imagePath).arg(pixmap.width()).arg(pixmap.height());
 
             qsMsg += imgPath;
-        } else if (msgList.at(i).at(0) == "text") {
-            qsMsg += msgList.at(i).at(1);
+        } else if (i.at(0) == "text") {
+            qsMsg += i.at(1);
             strData = qsMsg;
         }
     }
