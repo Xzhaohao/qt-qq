@@ -10,8 +10,8 @@ TalkWindowItem::~TalkWindowItem() {
 }
 
 void TalkWindowItem::initControl() {
-    ui->closeBtn->setVisible(false);
-    connect(ui->closeBtn, SIGNAL(clicked(bool)), this, SIGNAL(signalCloseClocked()));
+    ui->tCloseBtn->setVisible(false);
+    connect(ui->tCloseBtn, SIGNAL(clicked(bool)), this, SIGNAL(signalCloseClocked()));
 }
 
 void TalkWindowItem::setAvatarPixmap(const QPixmap &avatar) {
@@ -29,12 +29,12 @@ QString TalkWindowItem::getMsgLabelText() {
 }
 
 void TalkWindowItem::enterEvent(QEvent *event) {
-    ui->closeBtn->setVisible(true);
+    ui->tCloseBtn->setVisible(true);
     QWidget::enterEvent(event);
 }
 
 void TalkWindowItem::leaveEvent(QEvent *event) {
-    ui->closeBtn->setVisible(false);
+    ui->tCloseBtn->setVisible(false);
     QWidget::leaveEvent(event);
 }
 

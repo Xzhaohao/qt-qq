@@ -9,7 +9,7 @@ MsgHtmlObj::MsgHtmlObj(QObject *parent, QString msgLPicPath) : QObject(parent) {
 }
 
 MsgWebView::MsgWebView(QWidget *parent) : QWebEngineView(parent), m_channel(new QWebChannel(this)) {
-    MsgWebPage *page = new MsgWebPage(this);
+    auto *page = new MsgWebPage(this);
     setPage(page);
 
     m_msgHtmlObj = new MsgHtmlObj(this);
@@ -47,7 +47,7 @@ MsgWebView::MsgWebView(QWidget *parent) : QWebEngineView(parent), m_channel(new 
             strPicturePath = queryEmployeeModel.data(index).toString();
 
             strExternal = "external_" + strTalkId;
-            MsgHtmlObj *msgHtmlObj = new MsgHtmlObj(this, strPicturePath);
+            auto *msgHtmlObj = new MsgHtmlObj(this, strPicturePath);
             m_channel->registerObject(strExternal, msgHtmlObj);
         }
     }
@@ -198,7 +198,7 @@ QString MsgHtmlObj::getMsgTmplHtml(const QString &code) {
     return strData;
 }
 
-bool MsgWebPage::acceptNavigationRequest(const QUrl &url, NavigationType type, bool isMainFrame) {
+bool MsgWebPage::acceptNavigationRequest(const QUrl &url, NavigationType, bool) {
     // 仅仅接收qrc :/*.html
     if (url.scheme() == QString("qrc")) return true;
     return false;

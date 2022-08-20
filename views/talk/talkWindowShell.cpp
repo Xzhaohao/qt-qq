@@ -6,6 +6,15 @@ TalkWindowShell::TalkWindowShell(QWidget *parent) : BaseWindow(parent), ui(new U
     loadStyleSheet("talkWindow");
     initControl();
     initTcpSocket();
+
+    QFile file(":/assets/MsgHtml/msgtmpl.js");
+    if (!file.size()) { // 文件大小为零则创建文件
+        QStringList employeeIDList;
+        getEmployeeID(employeeIDList);
+        if (!createJsFile(employeeIDList)) {
+            QMessageBox::information(this, "提示", "更新js文件数据失败");
+        }
+    }
 }
 
 TalkWindowShell::~TalkWindowShell() {
@@ -110,6 +119,96 @@ void TalkWindowShell::initTcpSocket() {
     mTcpClientSocket->connectToHost("127.0.0.1", TCP_PORT);
 }
 
-void TalkWindowShell::updateSendTcpMsg(QString &strData, int &msgType, const QString& fileName) {
+void TalkWindowShell::updateSendTcpMsg(QString &strData, int &msgType, const QString &fileName) {
 
+}
+
+bool TalkWindowShell::createJsFile(QStringList &employeeList) {
+    QString strFileTxt(qApp->applicationDirPath() + "/msgtmpl.txt");
+    QFile fileRead(strFileTxt);
+    QString strFile;
+    if (fileRead.open(QIODevice::ReadOnly)) {
+        strFile = fileRead.readAll();
+        fileRead.close();
+    } else {
+        QMessageBox::information(this, "提示", "msgtmpl.txt读取数据失败");
+        return false;
+    }
+    QFile fileWrite(qApp->applicationDirPath() + "/msgtmpl.js");
+    if (fileWrite.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        // 更新空值
+        QString strSourceInitNull = "var external = null;";
+        // 更新初始化
+        QString strSourceInit = "external = channel.objects.external;";
+        // 更新newChannel
+        QString strSourceNew = "new QWebChannel(qt.webChannelTransport,"
+                               "function(channel) {external = channel.objects.external;});";
+
+        QString strSourceRecvHtml;
+        // QFile fileRecvHtml("assets/MsgHtml/recvHtml.txt");
+        QFile fileRecvHtml(qApp->applicationDirPath() + "/recvHtml.txt");
+        if (fileRecvHtml.open(QIODevice::ReadOnly)) {
+            strSourceRecvHtml = fileRecvHtml.readAll();
+            fileRecvHtml.close();
+        } else {
+            QMessageBox::information(this, "提示", "recvHtml.txt读取失败");
+            return false;
+        }
+
+        // 保存替换后的脚本
+        QString strReplaceInitNull;
+        QString strReplaceInit;
+        QString strReplaceNew;
+        QString strReplaceRecvHtml;
+
+        for (int i = 0; i < employeeList.length(); i++) {
+            // 编辑 替换后的空值
+            QString strInitNull = strSourceInitNull;
+            strInitNull.replace("external", QString("external_%1").arg(employeeList.at(i)));
+            strReplaceInitNull += strInitNull;
+            strReplaceInitNull += "\n";
+
+            // 编辑替换后的初始值
+            QString strInit = strSourceInit;
+            strInit.replace("external", QString("external_%1").arg(employeeList.at(i)));
+            strReplaceInit += strInit;
+            strReplaceInit += "\n";
+
+            // 编辑替换后的 newWebChannel
+            QString strNew = strSourceNew;
+            strNew.replace("external", QString("external_%1").arg(employeeList.at(i)));
+            strReplaceNew += strNew;
+            strReplaceNew += "\n";
+
+            // 编辑替换后的recvHtml
+            QString strRecvHtml = strSourceRecvHtml;
+            strRecvHtml.replace("external", QString("external_%1").arg(employeeList.at(i)));
+            strRecvHtml.replace("recvHtml", QString("recvHtml_%1").arg(employeeList.at(i)));
+            strReplaceRecvHtml += strRecvHtml;
+            strReplaceRecvHtml += "\n";
+        }
+        strFile.replace(strSourceInitNull, strReplaceInitNull);
+        strFile.replace(strSourceInit, strReplaceInit);
+        strFile.replace(strSourceNew, strReplaceNew);
+        strFile.replace(strSourceRecvHtml, strReplaceRecvHtml);
+
+        QTextStream stream(&fileWrite);
+        stream << strFile;
+        return true;
+    } else {
+        QMessageBox::information(this, "提示", "写msgtmpl.js失败");
+        return false;
+    }
+}
+
+void TalkWindowShell::getEmployeeID(QStringList &employeeList) {
+    QSqlQueryModel queryModel;
+    queryModel.setQuery("SELECT employeeID FROM tab_employees WHERE `status`= 1");
+    // 员工总数
+    int employeesNum = queryModel.rowCount();
+    QModelIndex index;
+    for (int i = 0; i < employeesNum; i++) {
+        index = queryModel.index(i, 0);
+        employeeList << queryModel.data(index).toString();
+    }
 }

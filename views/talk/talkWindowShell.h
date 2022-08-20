@@ -34,6 +34,11 @@ private:
     // 初始化TCP
     void initTcpSocket();
 
+    // 获取所有员工ID
+    void getEmployeeID(QStringList &employeeList);
+
+    bool createJsFile(QStringList &employeeList);
+
 public slots:
 
     // 表情按钮被点击

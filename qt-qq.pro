@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++14
 
+RC_ICONS += logo.ico
+
 SOURCES += \
     main.cpp \
     views/main/mainWindow.cpp \

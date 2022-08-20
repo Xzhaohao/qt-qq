@@ -24,7 +24,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *avatarLabel;
     QLabel *msgLabel;
-    QPushButton *closeBtn;
+    QPushButton *tCloseBtn;
 
     void setupUi(QWidget *TalkWindowItem)
     {
@@ -65,14 +65,14 @@ public:
 
         horizontalLayout->addWidget(msgLabel);
 
-        closeBtn = new QPushButton(TalkWindowItem);
-        closeBtn->setObjectName(QString::fromUtf8("closeBtn"));
-        sizePolicy1.setHeightForWidth(closeBtn->sizePolicy().hasHeightForWidth());
-        closeBtn->setSizePolicy(sizePolicy1);
-        closeBtn->setMinimumSize(QSize(16, 16));
-        closeBtn->setMaximumSize(QSize(16, 16));
+        tCloseBtn = new QPushButton(TalkWindowItem);
+        tCloseBtn->setObjectName(QString::fromUtf8("tCloseBtn"));
+        sizePolicy1.setHeightForWidth(tCloseBtn->sizePolicy().hasHeightForWidth());
+        tCloseBtn->setSizePolicy(sizePolicy1);
+        tCloseBtn->setMinimumSize(QSize(16, 16));
+        tCloseBtn->setMaximumSize(QSize(16, 16));
 
-        horizontalLayout->addWidget(closeBtn);
+        horizontalLayout->addWidget(tCloseBtn);
 
 
         retranslateUi(TalkWindowItem);
@@ -85,7 +85,7 @@ public:
         TalkWindowItem->setWindowTitle(QApplication::translate("TalkWindowItem", "TalkWindowItem", nullptr));
         avatarLabel->setText(QString());
         msgLabel->setText(QString());
-        closeBtn->setText(QString());
+        tCloseBtn->setText(QString());
     } // retranslateUi
 
 };

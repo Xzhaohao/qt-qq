@@ -353,5 +353,16 @@
         <file>assets/titleBar/max.png</file>
         <file>assets/titleBar/min.png</file>
         <file>assets/titleBar/restore.png</file>
+        <file>assets/MsgHtml/jquery-3.3.1.min.js</file>
+        <file>assets/MsgHtml/laser.rgb</file>
+        <file>assets/MsgHtml/msgFont.txt</file>
+        <file>assets/MsgHtml/msgleftTmpl.html</file>
+        <file>assets/MsgHtml/msgrightTmpl.html</file>
+        <file>assets/MsgHtml/msgTmpl.html</file>
+        <file>assets/MsgHtml/msgtmpl.js</file>
+        <file>assets/MsgHtml/msgtmpl.txt</file>
+        <file>assets/MsgHtml/qwebchannel.js</file>
+        <file>assets/MsgHtml/recvHtml.txt</file>
+        <file>assets/MsgHtml/ui.css</file>
     </qresource>
 </RCC>

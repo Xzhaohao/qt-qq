@@ -1,14 +1,13 @@
-* {
+﻿* {
     font-family: Microsoft YaHei;
 }
 
-QWidget#TalkWindow
-{
+QWidget#TalkWindow {
     background-color: #ffffff;
 	border: 1px solid #eeeeee;
 }
 
-QWidget#frameWidhet{
+QWidget#frameWidhet {
 	background-color: #ffffff;
 	border-top: 1px solid #eeeeee;
 	border-bottom: 1px solid #eeeeee;
@@ -196,36 +195,36 @@ QPushButton#addHumanBtn:pressed {
 }
 
 QPushButton#appBtn {
-   background-color:transparent;
+   background-color: transparent;
    background-image: url(:assets/aio_toobar_app.png); 
-   background-position:center;
+   background-position: center;
 }
 
 QPushButton#appBtn:hover {
-   background-image:url(:assets/aio_toobar_app.png);
-   background-position:center;
-   border-image:url(:assets/2014_btn_hover.gft.png);
-   border-width:2px;
+   background-image: url(:assets/aio_toobar_app.png);
+   background-position: center;
+   border-image: url(:assets/2014_btn_hover.gft.png);
+   border-width: 2px;
 }
 
 QPushButton#appBtn:pressed {
-   background-image:url(:assets/aio_toobar_app.png);
-   background-position:center;
-   border-image:url(:assets/2014_btn_down.gft.png);
-   border-width:2px;
+   background-image: url(:assets/aio_toobar_app.png);
+   background-position: center;
+   border-image: url(:assets/2014_btn_down.gft.png);
+   border-width: 2px;
 }
 
 QPushButton#videoBtn {
-   background-color:transparent;
-   background-image: url(:assets/aio_toobar_report.png); 
-   background-position:center;
+   background-color: transparent;
+   background-image: url(:assets/aio_toobar_report.png);
+   background-position: center;
 }
 
 QPushButton#videoBtn:hover {
-   background-image:url(:assets/aio_toobar_report.png);
-   background-position:center;
-   border-image:url(:assets/2014_btn_hover.gft.png);
-   border-width:2px;
+   background-image: url(:assets/aio_toobar_report.png);
+   background-position: center;
+   border-image: url(:assets/2014_btn_hover.gft.png);
+   border-width: 2px;
 }
 
 QPushButton#videoBtn:pressed {
@@ -293,26 +292,26 @@ QListView::item:hover {
 
 QPushButton#tCloseBtn {
    border-image: url(:assets/close.png); 
-   border-width:0px;
+   border-width: 0px;
 }
 
 QPushButton#tCloseBtn:hover {
    border-image: url(:assets/close-hover.png); 
-   border-width:0px;
+   border-width: 0px;
 }
 
 QPushButton#tCloseBtn:pressed {
    border-image: url(:assets/close-hover.png); 
-   border-width:0px;
+   border-width: 0px;
 }
 
-QLabel#msgLabel{
-	color:#333333;
-	font-size:12px;
+QLabel#msgLabel {
+	color: #333333;
+	font-size: 12px;
 }
 
 QMenu#senMenu {
-	border-image:url(:assets/menu_bkg.gft.png);
+	border-image: url(:assets/menu_bkg.gft.png);
 	border-width: 2px;
 }
 
@@ -390,44 +389,44 @@ QComboBox QAbstractItemView {
     font-size:12px;
 }
 
- QScrollBar:horizontal{
-     background: #ffffff;
-     height: 6px;
- }
+QScrollBar:horizontal{
+    background: #ffffff;
+    height: 6px;
+}
 
- QScrollBar::handle:horizontal{
-     background:#cccccc;
-     border-radius:3px;
-     height: 6px;
- }
+QScrollBar::handle:horizontal{
+    background:#cccccc;
+    border-radius:3px;
+    height: 6px;
+}
 
- QScrollBar::sub-line:horizontal{
-     background:transparent;
- }
+QScrollBar::sub-line:horizontal{
+    background:transparent;
+}
 
- QScrollBar::add-line:horizontal{
-     background:transparent;
- }
+QScrollBar::add-line:horizontal{
+    background:transparent;
+}
 
- QScrollBar:vertical {
-     background: #ffffff;
-     width: 6px;
- }
+QScrollBar:vertical {
+    background: #ffffff;
+    width: 6px;
+}
 
- QScrollBar::handle:vertical {
-     background:#cccccc;
-     border-radius:3px;
-     width: 6px;
- }
+QScrollBar::handle:vertical {
+    background:#cccccc;
+    border-radius:3px;
+    width: 6px;
+}
 
- QScrollBar::sub-line:vertical {
-     background:transparent;
- }
+QScrollBar::sub-line:vertical {
+    background:transparent;
+}
 
- QScrollBar::add-line:vertical {
-     background:transparent;
- }
- 
- QWidget#titleWidget{
+QScrollBar::add-line:vertical {
+    background:transparent;
+}
+
+QWidget#titleWidget{
 	 border-top:0px;
- }
+}
