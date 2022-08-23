@@ -16,6 +16,10 @@ public:
 private:
     void initTopSocket();
 
+private slots:
+
+    void onUDPBroadMsg(QByteArray &btData);
+
 private:
     Ui::ServerClass *ui;
 

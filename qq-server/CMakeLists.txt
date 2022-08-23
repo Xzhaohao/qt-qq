@@ -21,7 +21,9 @@ add_executable(
         src/Server.cpp
         src/Server.h
         src/TcpServer.cpp
-        src/TcpServer.h)
+        src/TcpServer.h
+        src/TcpSocket.cpp
+        src/TcpSocket.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "
