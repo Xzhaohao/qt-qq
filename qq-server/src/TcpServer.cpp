@@ -1,6 +1,6 @@
 #include "TcpServer.h"
 
-TcpServer::TcpServer(int port) {
+TcpServer::TcpServer(int port) : mPort(port) {
 
 }
 

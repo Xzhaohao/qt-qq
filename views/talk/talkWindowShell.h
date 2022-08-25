@@ -9,7 +9,7 @@
 #include "../emotion/emotionWindow.h"
 #include "../../utils/customProxyStyle.h"
 
-#define TCP_PORT 10086
+#define TCP_PORT 8888
 
 class TalkWindowShell : public BaseWindow {
 Q_OBJECT
