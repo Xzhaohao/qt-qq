@@ -8,6 +8,8 @@
 #include <QSqlRecord>
 #include <QSqlQuery>
 #include <QTimer>
+#include <QFileDialog>
+#include <QUdpSocket>
 #include "ui_Server.h"
 #include "TcpServer.h"
 
@@ -21,6 +23,9 @@ public:
 
 private:
     void initTopSocket();
+
+    // 初始化组合框的数据
+    void initComboBoxData();
 
     bool connectMySql();
 
@@ -40,6 +45,21 @@ private slots:
     void onUDPBroadMsg(QByteArray &btData);
 
     void onRefresh();
+
+    // 点击信号与槽函数自动连接，根据QQ号查询员工
+    void on_queryDepartmentBtn_clicked();
+
+    // 根据员工QQ号筛选
+    void on_queryIDBtn_clicked();
+
+    // 注销员工QQ号
+    void on_logoutBtn_clicked();
+
+    // 选择图片按钮（员工的寸照）
+    void on_selectPictureBtn_clicked();
+
+    // 新增员工
+    void on_addBtn_clicked();
 
 private:
     Ui::ServerClass *ui;
@@ -63,7 +83,10 @@ private:
     // 在线状态
     QMap<QString, QString> mOnlineMap;
 
+    // tcp服务端
     TcpServer *mTcpServer{};
+    // udp广播
+    QUdpSocket *mUdpSender{};
 };
 
 #endif // QQ_SERVER_H
