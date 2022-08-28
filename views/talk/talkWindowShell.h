@@ -9,6 +9,7 @@
 #include "../base/baseWindow.h"
 #include "../emotion/emotionWindow.h"
 #include "../../utils/customProxyStyle.h"
+#include "../receiveFile/receiveFile.h"
 
 #define TCP_PORT 8888
 

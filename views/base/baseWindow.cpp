@@ -1,5 +1,7 @@
 #include "baseWindow.h"
 
+extern QString gLoginEmployeeID;
+
 BaseWindow::BaseWindow(QWidget *parent) : QDialog(parent) {
     mColorBackground = CommonUtils::getDefaultSkinColor();
     // 无边框窗口
@@ -47,13 +49,13 @@ void BaseWindow::loadStyleSheet(const QString &styleName) {
         QString b = QString::number(mColorBackground.blue());
 
         QString qsStyleSheet = QString("QWidget[titleSkin=true] {"
-                                "background-color: rgb(%1, %2, %3);"
-                                "border-top-left-radius: 4px;}"
-                                "QWidget[bottomSkin=true] {"
-                                "border-top: 1px solid rgba(%1, %2, %3, 100);"
-                                "background-color: rgba(%1, %2, %3, 50);"
-                                "border-bottom-left-radius: 4px;"
-                                "border-bottom-right-radius: 4px;}").arg(r).arg(g).arg(b);
+                                       "background-color: rgb(%1, %2, %3);"
+                                       "border-top-left-radius: 4px;}"
+                                       "QWidget[bottomSkin=true] {"
+                                       "border-top: 1px solid rgba(%1, %2, %3, 100);"
+                                       "background-color: rgba(%1, %2, %3, 50);"
+                                       "border-bottom-left-radius: 4px;"
+                                       "border-bottom-right-radius: 4px;}").arg(r).arg(g).arg(b);
 
         qsStyleSheet += QLatin1String(file.readAll());
 
@@ -113,6 +115,11 @@ void BaseWindow::onShowNormal(bool) {
 }
 
 void BaseWindow::onShowQuit(bool) {
+    // 更改数据库登录状态为离线
+    QString strSqlStatus = QString("UPDATE tab_employees SET `online` =1 WHERE employeeID=%1").arg(gLoginEmployeeID);
+    QSqlQuery sqlStatus(strSqlStatus);
+    sqlStatus.exec();
+
     QApplication::quit();
 }
 

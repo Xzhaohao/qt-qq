@@ -64,7 +64,11 @@ add_executable(
         components/msgEdit/QMsgTextEdit.cpp
         components/msgEdit/QMsgTextEdit.h
         components/msgView/msgWebView.cpp
-        components/msgView/msgWebView.h)
+        components/msgView/msgWebView.h
+        views/sendFile/sendFile.cpp
+        views/sendFile/sendFile.h
+        views/receiveFile/receiveFile.cpp
+        views/receiveFile/receiveFile.h)
 
 if (NOT CMAKE_PREFIX_PATH)
     message(WARNING "CMAKE_PREFIX_PATH is not defined, you may need to set it "

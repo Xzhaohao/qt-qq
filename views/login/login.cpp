@@ -3,6 +3,8 @@
 // 登录用户的ID
 QString gLoginEmployeeID;
 
+// MyTcpSocket gTcpSocket;
+
 Login::Login(QWidget *parent) : BaseWindow(parent), ui(new Ui::Login) {
     ui->setupUi(this);
     // setAttribute(Qt::WA_DeleteOnClose);
@@ -39,7 +41,25 @@ void Login::onLoginBtnClicked() {
         ui->editPassword->setText("");
         return;
     }
+
     close();
+
+    // 更改数据库登录状态为在线
+    QString strSqlStatus = QString("UPDATE tab_employees SET `online` =2 WHERE employeeID=%1").arg(gLoginEmployeeID);
+    QSqlQuery sqlStatus(strSqlStatus);
+    sqlStatus.exec();
+
+    // 登录成功后
+    // gTcpSocket.connectToHost(SERVER_IP, gtcpProt);
+    // bool ok = false;
+    // ok = gTcpSocket.waitForConnected();
+    // QByteArray loginData;
+    // loginData[0] = '2';
+    // loginData.append(gLoginEmployeeID);
+
+    // gTcpSocket.write(loginData);
+    // gTcpSocket.waitForBytesWritten();
+
     auto *mainWindow = new MainWindow;
     mainWindow->show();
 }

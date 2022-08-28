@@ -5,6 +5,7 @@
 #include <QStyleOption>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QSqlQuery>
 #include "../../components/titleBar/titleBar.h"
 #include "../../manger/notifyManger.h"
 

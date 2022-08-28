@@ -22,11 +22,13 @@ SOURCES += \
     components/contactItem/contactItem.cpp \
     components/msgEdit/QMsgTextEdit.cpp \
     components/msgView/msgWebView.cpp \
+    views/sendFile/sendFile.cpp \
     views/main/rootContactItem.cpp \
     views/talk/talkWindow.cpp \
     views/talk/talkWindowShell.cpp \
     views/emotion/emotionWindow.cpp \
     views/emotion/emotionLabelItem.cpp \
+    views/receiveFile/receiveFile.cpp \
     views/talk/talkWindowItem.cpp
 
 HEADERS += \
@@ -47,11 +49,13 @@ HEADERS += \
     components/contactItem/contactItem.h \
     components/msgEdit/QMsgTextEdit.h \
     components/msgView/msgWebView.h \
+    views/sendFile/sendFile.h \
     views/main/rootContactItem.h \
     views/talk/talkWindow.h \
     views/talk/talkWindowShell.h \
     views/emotion/emotionWindow.h \
     views/emotion/emotionLabelItem.h \
+    views/receiveFile/receiveFile.h \
     views/talk/talkWindowItem.h
 
 FORMS += \
@@ -62,7 +66,9 @@ FORMS += \
     views/talk/talkWindow.ui \
     views/emotion/emotionWindow.ui \
     views/talk/talkWindowItem.ui \
-    components/contactItem/contactItem.ui
+    components/contactItem/contactItem.ui \
+    views/receiveFile/receiveFile.ui \
+    views/sendFile/sendFile.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

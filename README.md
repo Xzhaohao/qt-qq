@@ -9,4 +9,4 @@
 
 - 聊天
 
-<img src="/img/talk.png" width="50%"  alt="展示图"/>
+<img src="/img/talk.png" width="80%"  alt="展示图"/>

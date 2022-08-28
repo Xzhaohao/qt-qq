@@ -3,7 +3,9 @@
 
 extern QString gLoginEmployeeID;
 
+// 文件名称
 QString gfileName;
+// 文件内容
 QString gfileData;
 const int gUdpPort = 6666;
 
@@ -199,14 +201,14 @@ void TalkWindowShell::onProcessPendingData() {
                 if (querySenderName.next()) {
                     sender = querySenderName.value(0).toString();
                 }
-                // 接收文件操作 .....
-//                ReceiveFile* receiveFile = new ReceiveFile(this);
-//                connect(receiveFile, &ReceiveFile::refuseFile, [this]() {
-//                    return;
-//                });
-//                QString msgLebel = "收到来自" + sender + "发来的文件.是否接受?";
-//                receiveFile->setMsg(msgLebel);
-//                receiveFile->show();
+                // 接收文件操作
+                auto *receiveFile = new ReceiveFile(this);
+                connect(receiveFile, &ReceiveFile::refuseFile, [this]() {
+                    return;
+                });
+                QString msgLebel = "收到来自" + sender + "发来的文件.是否接受?";
+                receiveFile->setMsg(msgLebel);
+                receiveFile->show();
             }
         } else if (btData[0] == '0') { // 单聊
             strReceieEmployeeeID = strData.mid(groupFlagWidth + employeeWidth, employeeWidth);
@@ -218,11 +220,9 @@ void TalkWindowShell::onProcessPendingData() {
             QByteRef cMsgType = btData[groupFlagWidth + employeeWidth + employeeWidth];
             if (cMsgType == '1') { // 文本信息
                 msgType = 1;
-                msgLen = strData.mid(groupFlagWidth + employeeWidth + employeeWidth + msgTypeWidth,
-                                     msgLengthWidth).toInt();
+                msgLen = strData.mid(groupFlagWidth + employeeWidth + employeeWidth + msgTypeWidth, msgLengthWidth).toInt();
 
-                strMsg = strData.mid(groupFlagWidth + employeeWidth + employeeWidth + msgTypeWidth + msgLengthWidth,
-                                     msgLen);
+                strMsg = strData.mid(groupFlagWidth + employeeWidth + employeeWidth + msgTypeWidth + msgLengthWidth, msgLen);
 
             } else if (cMsgType == '0') { // 表情信息
                 msgType = 0;
@@ -255,14 +255,13 @@ void TalkWindowShell::onProcessPendingData() {
                     sender = querySenderName.value(0).toString();
                 }
                 // 接收文件操作
-                // ReceiveFile* receiveFile = new ReceiveFile(this);
-                // connect(receiveFile, &ReceiveFile::refuseFile, [this]() {
-                //     return;
-                // });
-                // QString msgLebel = QString::fromLocal8Bit("收到来自") + sender +
-                //                    QString::fromLocal8Bit("发来的文件.是否接受?");
-                // receiveFile->setMsg(msgLebel);
-                // receiveFile->show();
+                auto *receiveFile = new ReceiveFile(this);
+                connect(receiveFile, &ReceiveFile::refuseFile, [this]() {
+                    return;
+                });
+                QString msgLebel = "收到来自" + sender + "发来的文件.是否接受?";
+                receiveFile->setMsg(msgLebel);
+                receiveFile->show();
             }
         }
 
