@@ -22,7 +22,11 @@ public:
     ~Server() override;
 
 private:
+    // 初始化TCP
     void initTopSocket();
+
+    // 初始化UDP
+    void initUdpSocket();
 
     // 初始化组合框的数据
     void initComboBoxData();

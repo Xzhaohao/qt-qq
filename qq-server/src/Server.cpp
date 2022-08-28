@@ -34,6 +34,7 @@ Server::Server(QWidget *parent) : QDialog(parent), ui(new Ui::ServerClass) {
     connect(m_timer, &QTimer::timeout, this, &Server::onRefresh);
 
     initTopSocket();
+    initUdpSocket();
 }
 
 Server::~Server() {
@@ -318,4 +319,8 @@ void Server::on_addBtn_clicked() {
     mPixPath = "";
     ui->nameLineEdit->clear();
     ui->headLabel->setText(QStringLiteral("  员工寸照  "));
+}
+
+void Server::initUdpSocket() {
+    mUdpSender = new QUdpSocket(this);
 }

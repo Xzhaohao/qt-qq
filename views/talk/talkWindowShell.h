@@ -1,7 +1,8 @@
-#ifndef __TALK_WINDOW_SHELL_H
+﻿#ifndef __TALK_WINDOW_SHELL_H
 #define __TALK_WINDOW_SHELL_H
 
 #include <QTcpSocket>
+#include <QUdpSocket>
 #include "ui_talkWindowShell.h"
 #include "talkWindow.h"
 #include "talkWindowItem.h"
@@ -34,10 +35,14 @@ private:
     // 初始化TCP
     void initTcpSocket();
 
+    void initUdpSocket();
+
     // 获取所有员工ID
     void getEmployeeID(QStringList &employeeList);
 
     bool createJsFile(QStringList &employeeList);
+
+    void handleReceivedMsg(int senderEmployeeID, int msgType, QString strMsg);
 
 public slots:
 
@@ -56,7 +61,7 @@ private slots:
     void onEmotionItemClicked(int emotionNum);
 
     // 处理收到的数据
-    // void onProcessTcpData();
+    void onProcessPendingData();
 
 private:
     Ui::TalkWindowShell *ui;
@@ -69,6 +74,8 @@ private:
 
     // Tcp客户端
     QTcpSocket *mTcpClientSocket;
+    // UDP接收端
+    QUdpSocket *mUdpReceiver;
 };
 
 #endif // __TALK_WINDOW_SHELL_H
